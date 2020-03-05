@@ -20,7 +20,7 @@ end
 ### Support multiple queues
 if node['laravel-artisan'].key?('queues')
     node['laravel-artisan']['queues'].each do |name, value|
-        config = node['laravel-artisan']['queue'] + value
+        config = Chef::Mixin::DeepMerge node['laravel-artisan']['queue'], value
         artisan_queue "supervise artisan queue #{name}" do
           worker_name name
           path node['laravel-artisan']['path']
