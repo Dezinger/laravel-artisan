@@ -13,10 +13,10 @@ end
 
 
 ### Support multiple queues
-if node['laravel-artisan'].keys?('queues')
-    node['laravel-artisan']['queues'].each do |key, value|
-        artisan_queue "stop queue #{key}" do
-          worker_name key
+if node['laravel-artisan'].key?('queues')
+    node['laravel-artisan']['queues'].each do |name, value|
+        artisan_queue "stop queue #{name}" do
+          worker_name name
           configuration value
           action :stop
         end
