@@ -5,7 +5,7 @@
 ;
 
 [program:<%= @worker_name %>]
-command=php <%= @path %>/artisan queue:work			; the program (relative uses PATH, can take args)
+command=php <%= @path %>/artisan queue:work	<%= @config['worker_commands'] %> ; the program (relative uses PATH, can take args)
 process_name=%(program_name)s_%(process_num)02d 	; process_name expr (default %(program_name)s)
 numprocs=<%= @config['numprocs'] %>                 ; number of processes copies to start (def 1)
 ;directory=/tmp                						; directory to cwd to before exec (def no cwd)

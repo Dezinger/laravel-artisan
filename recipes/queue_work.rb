@@ -16,3 +16,18 @@ artisan_queue 'supervise artisan queue' do
   configuration node['laravel-artisan']['queue']
   action :start
 end
+
+### Support multiple queues
+if node['laravel-artisan'].keys?('queues')
+    node['laravel-artisan']['queues'].each do |key, value|
+
+        config = node['laravel-artisan']['queue'] + value
+
+        artisan_queue "supervise artisan queue #{key}" do
+          worker_name key
+          path node['laravel-artisan']['path']
+          configuration config
+          action :start
+        end
+    end
+end
